@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriCycle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================= GLOBAL ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #05050a; }
+img { max-width: 100%; display: block; }
+
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+#page-contact.active { display: flex; flex-direction: column; }
+#page-assess.active  { display: flex; flex-direction: column; }
+
+/* ================= PAGE 1 : HOME ================= */
+#page-home {
+    --primary-green: #20d488;
+    --bg-dark: #121614;
+    --text-light: #ffffff;
+    --text-muted: #a0a5a3;
+    --nav-bg: rgba(30, 34, 32, 0.85);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+#page-home .hero-section {
+    min-height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center;
+    background-image:
+        linear-gradient(to bottom, rgba(18,22,20,0.7), rgba(18,22,20,0.4), rgba(18,22,20,0.8)),
+        url('https://images.unsplash.com/photo-1622702967238-17654f63f066?q=80&w=1075&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+    background-size: cover; background-position: center; background-attachment: fixed; padding: 20px;
+}
+#page-home .navbar {
+    width: 100%; max-width: 1200px; background-color: var(--nav-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: 50px; padding: 12px 24px; display: flex; justify-content: space-between;
+    align-items: center; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05);
+    position: relative; z-index: 100;
+}
+#page-home .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: var(--text-light); text-decoration: none; }
+#page-home .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+#page-home .nav-links li a { text-decoration: none; color: var(--text-light); font-size: 14px; font-weight: 500; transition: color 0.3s ease; }
+#page-home .nav-links li a:hover, #page-home .nav-links li a.active { color: var(--primary-green); }
+#page-home .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; cursor: pointer; transition: transform 0.3s ease; }
+#page-home .dropdown { position: relative; display: inline-block; }
+#page-home .dropdown-content {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+    background-color: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    min-width: 180px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 8px 0; opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; z-index: 1000; list-style: none;
+}
+#page-home .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-home .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-home .dropdown-content li { width: 100%; }
+#page-home .dropdown-content li a { color: var(--text-light); padding: 12px 20px; text-decoration: none; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-home .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--primary-green); padding-left: 25px; }
+#page-home .nav-btn {
+    background-color: var(--primary-green); color: #000; padding: 10px 20px; border-radius: 30px;
+    text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+#page-home .nav-btn:hover { transform: scale(1.05); background-color: #1de095; }
+#page-home .hero-content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; max-width: 800px; margin-top: 40px; padding-bottom: 80px; }
+#page-home .badge { border: 1px solid rgba(32,212,136,0.4); color: var(--primary-green); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px; background-color: rgba(32,212,136,0.05); }
+#page-home .hero-title { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
+#page-home .hero-description { font-size: 16px; color: var(--text-muted); line-height: 1.6; max-width: 600px; margin-bottom: 40px; }
+#page-home .hero-buttons { display: flex; gap: 20px; }
+#page-home .btn-primary { background-color: var(--primary-green); color: #000; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; }
+#page-home .btn-primary:hover { background-color: #1de095; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(32,212,136,0.2); }
+#page-home .btn-secondary { background-color: transparent; color: var(--text-light); text-decoration: none; padding: 14px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); font-weight: 600; font-size: 16px; transition: all 0.3s ease; backdrop-filter: blur(5px); }
+#page-home .btn-secondary:hover { background-color: rgba(255,255,255,0.1); border-color: var(--text-light); transform: translateY(-2px); }
+@media (max-width: 900px) { #page-home .nav-links { display: none; } }
+@media (max-width: 600px) {
+    #page-home .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
+    #page-home .btn-primary, #page-home .btn-secondary { justify-content: center; width: 100%; }
+    #page-home .navbar { padding: 10px 20px; }
+}
+
+/* ================= PAGE 2 : ABOUT ================= */
+#page-about {
+    --primary-green: #20d488;
+    --primary-dark: #0f5132;
+    --bg-light: #ffffdc;
+    --text-dark: #1a202c;
+    --text-muted: #4a5568;
+    --white: #f5f5dc;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+#page-about .navbar { background-color: var(--white); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+#page-about .logo { font-size: 24px; font-weight: 700; color: var(--primary-dark); text-decoration: none; letter-spacing: 1px; }
+#page-about .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+#page-about .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: color 0.3s ease; }
+#page-about .nav-links a:hover, #page-about .nav-links a.active { color: var(--primary-green); }
+#page-about .dropdown { position: relative; display: inline-block; }
+#page-about .dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: var(--white); min-width: 160px; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px rgba(0,0,0,0.1); padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; list-style: none; }
+#page-about .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-about .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-about .dropdown-content li a { color: var(--text-muted); padding: 10px 20px; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-about .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--primary-green); }
+#page-about .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; transition: transform 0.3s ease; }
+#page-about .dropdown-icon svg { fill: var(--primary-green); }
+#page-about .hero { display: flex; align-items: center; justify-content: space-between; padding: 80px 5%; background-color: var(--white); gap: 50px; }
+#page-about .hero-text { flex: 1; max-width: 600px; }
+#page-about .hero-text h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 20px; color: var(--primary-dark); }
+#page-about .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
+#page-about .hero-image { flex: 1; max-width: 50%; }
+#page-about .hero-image img { width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+#page-about .section-container { max-width: 1000px; margin: 0 auto; padding: 80px 20px; }
+#page-about .section-title { font-size: 2rem; margin-bottom: 30px; color: var(--primary-dark); border-bottom: 2px solid var(--primary-green); display: inline-block; padding-bottom: 5px; }
+#page-about p.text-block { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
+#page-about .about-section { background-color: var(--bg-light); }
+#page-about .about-content { display: flex; align-items: center; gap: 50px; }
+#page-about .about-text { flex: 1; }
+#page-about .about-image { flex: 1; }
+#page-about .about-image img { width: 100%; border-radius: 12px; }
+#page-about .highlight-text { font-weight: 600; color: var(--primary-dark); font-size: 1.2rem; border-left: 4px solid var(--primary-green); padding-left: 15px; margin: 30px 0; }
+#page-about .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+#page-about .focus-card { background: var(--white); padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
+#page-about .focus-number { font-size: 0.9rem; font-weight: 700; color: var(--primary-green); display: block; margin-bottom: 10px; letter-spacing: 1px; }
+#page-about .focus-card h4 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary-dark); }
+#page-about .focus-card p { color: var(--text-muted); font-size: 0.95rem; }
+#page-about .vision-section { background-color: var(--primary-dark); color: var(--white); text-align: center; }
+#page-about .vision-section .section-title { color: var(--white); border-bottom-color: var(--primary-green); }
+#page-about .vision-section p { color: #d1d5db; font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px auto; }
+#page-about .vision-section .closing-statement { font-weight: 600; color: var(--white); margin-top: 40px; }
+#page-about .footer { text-align: center; padding: 30px; background-color: #0a2e1c; color: #888; font-size: 0.9rem; }
+@media (max-width: 768px) {
+    #page-about .nav-links { display: none; }
+    #page-about .hero, #page-about .about-content { flex-direction: column; text-align: center; }
+    #page-about .hero-image, #page-about .about-image { max-width: 100%; }
+    #page-about .focus-grid { grid-template-columns: 1fr; }
+    #page-about .highlight-text { text-align: left; }
+}
+
+/* ================= PAGE 3 : SERVICES ================= */
+#page-services {
+    --primary-green: #20d488;
+    --bg-black: #000000;
+    --bg-white: #f5f5dc;
+    --text-dark: #111111;
+    --text-muted: #444444;
+    --border-light: #e5e5e5;
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+#page-services .navbar { background-color: var(--bg-black); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+#page-services .logo { font-size: 24px; font-weight: 800; color: var(--bg-white); text-decoration: none; letter-spacing: 1px; }
+#page-services .logo span { color: var(--primary-green); }
+#page-services .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+#page-services .nav-links a { text-decoration: none; color: #cccccc; font-weight: 500; transition: color 0.3s ease; }
+#page-services .nav-links a:hover, #page-services .nav-links a.active { color: var(--primary-green); }
+#page-services .dropdown { position: relative; display: inline-block; }
+#page-services .dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: var(--bg-black); min-width: 160px; border-radius: 8px; border: 1px solid #333; box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; list-style: none; }
+#page-services .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-services .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-services .dropdown-content li a { color: #cccccc; padding: 10px 20px; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-services .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--primary-green); }
+#page-services .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; transition: transform 0.3s ease; }
+#page-services .dropdown-icon svg { fill: var(--primary-green); }
+#page-services .page-header { color: var(--bg-white); padding: 120px 5% 140px 5%; text-align: center; position: relative; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1588561706940-a35c05269462?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D'); background-size: cover; background-position: center; background-attachment: fixed; overflow: hidden; }
+#page-services .page-header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+#page-services .page-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; color: var(--bg-white); }
+#page-services .page-header p { font-size: 1.2rem; color: #e0e0e0; max-width: 600px; margin: 0 auto; }
+#page-services .services-container { max-width: 1200px; margin: -60px auto 80px auto; padding: 0 20px; position: relative; z-index: 10; }
+#page-services .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+#page-services .service-card { background-color: var(--bg-white); border-radius: 12px; padding: 40px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); border: 1px solid var(--border-light); border-top: 4px solid var(--bg-black); transition: transform 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+#page-services .service-card:hover { transform: translateY(-5px); border-top-color: var(--primary-green); }
+#page-services .service-number { font-size: 2.5rem; font-weight: 800; color: var(--primary-green); line-height: 1; margin-bottom: 15px; display: block; }
+#page-services .service-card h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; color: var(--bg-black); line-height: 1.3; }
+#page-services .service-tagline { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--primary-green); }
+#page-services .service-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 15px; }
+#page-services .service-card p:last-child { margin-bottom: 0; }
+#page-services .footer { text-align: center; padding: 40px 20px; background-color: var(--bg-black); color: #888888; font-size: 0.9rem; }
+@media (max-width: 768px) {
+    #page-services .nav-links { display: none; }
+    #page-services .services-grid { grid-template-columns: 1fr; }
+    #page-services .services-container { margin-top: -40px; }
+    #page-services .page-header { padding: 80px 5% 100px 5%; }
+    #page-services .service-card { padding: 30px; }
+}
+
+/* ================= PAGE 4 : NASA POWER ================= */
+#page-nasa-power {
+    --agri-green: #20d488;
+    --bg-space: #05050a;
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+    background-color: var(--bg-space);
+    background-image:
+        linear-gradient(rgba(5,5,10,0.75), rgba(5,5,10,0.75)),
+        url('https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+    isolation: isolate; /* keeps the starfield ::after contained above the background */
+}
+#page-nasa-power::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image:
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 200px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 250px 50px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: twinkle 10s infinite alternate;
+}
+@keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 0.8; } }
+#page-nasa-power .navbar { background-color: rgba(5,5,10,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#page-nasa-power .logo { font-size: 24px; font-weight: 800; color: #ffffff; text-decoration: none; letter-spacing: 1px; }
+#page-nasa-power .logo span { color: var(--agri-green); }
+#page-nasa-power .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+#page-nasa-power .nav-links a { text-decoration: none; color: #cbd5e1; font-weight: 500; transition: color 0.3s ease; }
+#page-nasa-power .nav-links a:hover, #page-nasa-power .nav-links a.active { color: var(--agri-green); }
+#page-nasa-power .dropdown { position: relative; display: inline-block; }
+#page-nasa-power .dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: rgba(5,5,10,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); min-width: 160px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; list-style: none; }
+#page-nasa-power .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-nasa-power .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-nasa-power .dropdown-content li a { color: #cbd5e1; padding: 10px 20px; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-nasa-power .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--agri-green); }
+#page-nasa-power .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; transition: transform 0.3s ease; }
+#page-nasa-power .dropdown-icon svg { fill: var(--agri-green); }
+#page-nasa-power .main-container { max-width: 1200px; margin: 0 auto; padding: 100px 5%; display: flex; align-items: center; justify-content: space-between; gap: 60px; min-height: calc(100vh - 80px); }
+#page-nasa-power .content-section { flex: 1; max-width: 550px; }
+#page-nasa-power .badge { display: inline-block; background-color: rgba(32,212,136,0.1); color: var(--agri-green); border: 1px solid rgba(32,212,136,0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase; }
+#page-nasa-power .content-section h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 25px; line-height: 1.1; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+#page-nasa-power .content-section h1 span { color: var(--agri-green); -webkit-text-fill-color: var(--agri-green); }
+#page-nasa-power .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 35px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+#page-nasa-power .glass-card p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 20px; }
+#page-nasa-power .glass-card p:last-child { margin-bottom: 0; }
+#page-nasa-power .glass-card strong { color: #ffffff; font-weight: 600; }
+#page-nasa-power .image-section { flex: 1; display: flex; justify-content: center; position: relative; }
+#page-nasa-power .image-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: var(--agri-green); filter: blur(100px); opacity: 0.2; z-index: -1; border-radius: 50%; }
+#page-nasa-power .satellite-image { width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(32,212,136,0.15); }
+@media (max-width: 968px) {
+    #page-nasa-power .main-container { flex-direction: column-reverse; padding-top: 50px; text-align: center; gap: 40px; }
+    #page-nasa-power .content-section { max-width: 100%; }
+    #page-nasa-power .glass-card { text-align: left; }
+    #page-nasa-power .nav-links { display: none; }
+    #page-nasa-power .satellite-image { max-width: 100%; }
+}
+
+/* ================= PAGE 5 : NASA SMAP ================= */
+#page-nasa-smap {
+    --agri-green: #20d488;
+    --bg-space: #05050a;
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+    background-color: var(--bg-space);
+    background-image:
+        linear-gradient(rgba(5,5,10,0.75), rgba(5,5,10,0.75)),
+        url('https://images.unsplash.com/photo-1566345984367-fa2ba5cedc17?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+    isolation: isolate;
+}
+#page-nasa-smap::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image:
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 200px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 250px 50px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: twinkle 10s infinite alternate;
+}
+#page-nasa-smap .navbar { background-color: rgba(5,5,10,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#page-nasa-smap .logo { font-size: 24px; font-weight: 800; color: #ffffff; text-decoration: none; letter-spacing: 1px; }
+#page-nasa-smap .logo span { color: var(--agri-green); }
+#page-nasa-smap .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+#page-nasa-smap .nav-links a { text-decoration: none; color: #cbd5e1; font-weight: 500; transition: color 0.3s ease; }
+#page-nasa-smap .nav-links a:hover, #page-nasa-smap .nav-links a.active { color: var(--agri-green); }
+#page-nasa-smap .dropdown { position: relative; display: inline-block; }
+#page-nasa-smap .dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: rgba(5,5,10,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); min-width: 160px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; list-style: none; }
+#page-nasa-smap .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-nasa-smap .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-nasa-smap .dropdown-content li a { color: #cbd5e1; padding: 10px 20px; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-nasa-smap .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--agri-green); }
+#page-nasa-smap .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; transition: transform 0.3s ease; }
+#page-nasa-smap .dropdown-icon svg { fill: var(--agri-green); }
+#page-nasa-smap .main-container { max-width: 1200px; margin: 0 auto; padding: 100px 5%; display: flex; align-items: center; justify-content: space-between; gap: 60px; min-height: calc(100vh - 80px); }
+#page-nasa-smap .content-section { flex: 1; max-width: 550px; }
+#page-nasa-smap .badge { display: inline-block; background-color: rgba(32,212,136,0.1); color: var(--agri-green); border: 1px solid rgba(32,212,136,0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase; }
+#page-nasa-smap .content-section h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 25px; line-height: 1.1; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+#page-nasa-smap .content-section h1 span { color: var(--agri-green); -webkit-text-fill-color: var(--agri-green); }
+#page-nasa-smap .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 35px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+#page-nasa-smap .glass-card p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 20px; }
+#page-nasa-smap .glass-card p:last-child { margin-bottom: 0; }
+#page-nasa-smap .glass-card strong { color: #ffffff; font-weight: 600; }
+#page-nasa-smap .image-section { flex: 1; display: flex; justify-content: center; position: relative; }
+#page-nasa-smap .image-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: var(--agri-green); filter: blur(100px); opacity: 0.15; z-index: -1; border-radius: 50%; }
+#page-nasa-smap .satellite-image { width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(32,212,136,0.15); object-fit: cover; aspect-ratio: 1 / 1; }
+@media (max-width: 968px) {
+    #page-nasa-smap .main-container { flex-direction: column-reverse; padding-top: 50px; text-align: center; gap: 40px; }
+    #page-nasa-smap .content-section { max-width: 100%; }
+    #page-nasa-smap .glass-card { text-align: left; }
+    #page-nasa-smap .nav-links { display: none; }
+    #page-nasa-smap .satellite-image { max-width: 100%; }
+}
+
+/* ================= PAGE 6 : CONTACT ================= */
+#page-contact {
+    --agri-green: #20d488;
+    --bg-space: #05050a;
+    --text-light: #f8fafc;
+    --text-muted: #e2e8f0;
+    background-color: var(--bg-space);
+    background-image:
+        linear-gradient(rgba(5,5,10,0.75), rgba(5,5,10,0.85)),
+        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+}
+#page-contact .navbar { background-color: rgba(5,5,10,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#page-contact .logo { font-size: 24px; font-weight: 800; color: #ffffff; text-decoration: none; letter-spacing: 1px; }
+#page-contact .logo span { color: var(--agri-green); }
+#page-contact .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+#page-contact .nav-links a { text-decoration: none; color: #cbd5e1; font-weight: 500; transition: color 0.3s ease; }
+#page-contact .nav-links a:hover, #page-contact .nav-links a.active { color: var(--agri-green); }
+#page-contact .dropdown { position: relative; display: inline-block; }
+#page-contact .dropdown-content { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background-color: rgba(5,5,10,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); min-width: 160px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5); padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; list-style: none; }
+#page-contact .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+#page-contact .dropdown:hover .dropdown-icon { transform: rotate(180deg); }
+#page-contact .dropdown-content li a { color: #cbd5e1; padding: 10px 20px; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+#page-contact .dropdown-content li a:hover { background-color: rgba(32,212,136,0.1); color: var(--agri-green); }
+#page-contact .dropdown-icon { display: inline-flex; align-items: center; margin-left: 5px; transition: transform 0.3s ease; }
+#page-contact .dropdown-icon svg { fill: var(--agri-green); }
+#page-contact .main-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 80px 5%; }
+#page-contact .contact-card { background: rgba(10,15,12,0.6); border: 1px solid rgba(32,212,136,0.2); border-radius: 24px; padding: 60px 40px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); max-width: 600px; width: 100%; text-align: center; position: relative; }
+#page-contact .contact-card::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 80%; background: var(--agri-green); filter: blur(100px); opacity: 0.15; z-index: -1; border-radius: 50%; }
+#page-contact .badge { display: inline-block; background-color: rgba(32,212,136,0.1); color: var(--agri-green); border: 1px solid rgba(32,212,136,0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 25px; text-transform: uppercase; }
+#page-contact .contact-card h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 20px; line-height: 1.1; color: #ffffff; }
+#page-contact .contact-card p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto; }
+#page-contact .email-btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background-color: var(--agri-green); color: #000000; text-decoration: none; padding: 18px 36px; border-radius: 12px; font-size: 1.2rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(32,212,136,0.2); width: 100%; }
+#page-contact .email-btn:hover { background-color: #1de095; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(32,212,136,0.4); }
+#page-contact .email-btn svg { width: 24px; height: 24px; }
+@media (max-width: 768px) {
+    #page-contact .nav-links { display: none; }
+    #page-contact .contact-card { padding: 40px 20px; }
+    #page-contact .email-btn { font-size: 1rem; padding: 16px 20px; word-break: break-all; }
+}
+
+/* ================= PAGE 7 : ASSESS (UI.html) ================= */
+#page-assess {
+    --primary: #10b981;
+    --primary-light: #34d399;
+    --primary-glow: rgba(16,185,129,0.3);
+    --bg-dark: #050505;
+    --surface: rgba(20,20,25,0.7);
+    --surface-hover: rgba(35,35,45,0.8);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-light: rgba(255,255,255,0.08);
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #38bdf8;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    background-color: var(--bg-dark);
+    background-image: url('https://images.unsplash.com/photo-1706103520661-22ec2075855e?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-main);
+    position: relative;
+}
+#page-assess .navbar { background: rgba(5,5,5,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); position: sticky; top: 0; z-index: 100; }
+#page-assess .logo { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: var(--text-main); text-decoration: none; letter-spacing: 1px; }
+#page-assess .logo span { color: var(--primary); }
+#page-assess .main-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 20px; }
+#page-assess .quiz-card { background: var(--surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-light); border-top: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-lg); width: 100%; max-width: 900px; padding: 45px; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.02); position: relative; }
+#page-assess .stepper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative; }
+#page-assess .stepper::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border-light); z-index: 1; transform: translateY(-50%); }
+#page-assess .step-indicator { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; gap: 8px; }
+#page-assess .step-circle { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--border-light); display: flex; justify-content: center; align-items: center; font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--text-muted); transition: all 0.4s ease; }
+#page-assess .step-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); transition: color 0.3s; }
+#page-assess .step-indicator.active .step-circle { border-color: var(--primary); background: rgba(16,185,129,0.1); color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+#page-assess .step-indicator.active .step-label { color: var(--primary); }
+#page-assess .step-indicator.completed .step-circle { background: var(--primary); border-color: var(--primary); color: var(--bg-dark); }
+#page-assess .step-indicator.completed .step-label { color: var(--text-main); }
+#page-assess .step { display: none; animation: slideIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+#page-assess .step.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+#page-assess .step-header { margin-bottom: 30px; }
+#page-assess .step-title { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+#page-assess .step-desc { color: var(--text-muted); font-size: 1.05rem; }
+#page-assess .input-group { display: flex; gap: 15px; margin-top: 20px; }
+#page-assess .input-field { padding: 16px 20px; background-color: rgba(0,0,0,0.4); border: 1px solid var(--border-light); border-radius: var(--radius-sm); color: var(--text-main); font-family: 'Inter', sans-serif; font-size: 1.1rem; outline: none; width: 100%; transition: all 0.3s; }
+#page-assess .input-field:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background-color: rgba(0,0,0,0.6); }
+#page-assess .selection-counter { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; white-space: nowrap; margin-left: auto; transition: all 0.3s; }
+#page-assess .selection-counter.success { background: rgba(16,185,129,0.1); border-color: var(--primary); color: var(--primary); }
+#page-assess .location-tabs { display: flex; gap: 15px; margin-bottom: 25px; background: rgba(0,0,0,0.2); padding: 6px; border-radius: var(--radius-md); }
+#page-assess .tab-btn { flex: 1; padding: 14px; background: transparent; border: none; border-radius: var(--radius-sm); color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+#page-assess .tab-btn.active { background: var(--surface-hover); color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+#page-assess .location-content { display: none; }
+#page-assess .location-content.active { display: block; animation: slideIn 0.4s ease forwards; }
+#page-assess .gps-btn { width: 100%; padding: 20px; background: linear-gradient(135deg, var(--primary), #059669); color: var(--bg-dark); border: none; border-radius: var(--radius-md); font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; box-shadow: 0 10px 20px var(--primary-glow); }
+#page-assess .gps-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 25px var(--primary-glow); }
+#page-assess .gps-result { margin-top: 15px; padding: 15px; background: rgba(16,185,129,0.1); border: 1px solid var(--primary); border-radius: var(--radius-sm); text-align: center; color: var(--primary); font-weight: 600; display: none; }
+#page-assess .dropdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+#page-assess .form-group { display: flex; flex-direction: column; gap: 8px; }
+#page-assess .form-group label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+#page-assess .form-group select { padding: 16px; background-color: rgba(0,0,0,0.4); border: 1px solid var(--border-light); border-radius: var(--radius-sm); color: var(--text-main); font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2310b981%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; transition: all 0.3s; }
+#page-assess .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+#page-assess .form-group select:disabled { opacity: 0.5; cursor: not-allowed; }
+#page-assess .climate-status { margin-top: 22px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 500; display: none; align-items: center; gap: 10px; line-height: 1.4; }
+#page-assess .climate-status.show { display: flex; }
+#page-assess .climate-status.loading { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.3); color: var(--info); }
+#page-assess .climate-status.ok { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); color: var(--primary); }
+#page-assess .climate-status.err { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); color: var(--warning); }
+#page-assess .spinner { width: 16px; height: 16px; flex-shrink: 0; border: 2px solid rgba(56,189,248,0.25); border-top-color: var(--info); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#page-assess .crop-scroll-container { max-height: 380px; overflow-y: auto; padding-right: 15px; margin-bottom: 20px; }
+#page-assess .crop-scroll-container::-webkit-scrollbar { width: 6px; }
+#page-assess .crop-scroll-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+#page-assess .crop-scroll-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+#page-assess .crop-scroll-container::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+#page-assess .crop-category { margin-bottom: 30px; }
+#page-assess .crop-category h3 { font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: var(--text-main); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+#page-assess .crop-category h3::before { content: ''; display: block; width: 4px; height: 18px; background: var(--primary); border-radius: 2px; }
+#page-assess .crop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+#page-assess .crop-checkbox { position: relative; cursor: pointer; }
+#page-assess .crop-checkbox input { position: absolute; opacity: 0; }
+#page-assess .crop-label { display: flex; justify-content: center; align-items: center; padding: 12px 15px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: var(--radius-sm); font-size: 0.9rem; color: var(--text-muted); transition: all 0.2s; text-align: center; position: relative; overflow: hidden; }
+#page-assess .crop-checkbox:hover .crop-label { background: rgba(255,255,255,0.05); border-color: rgba(16,185,129,0.4); }
+#page-assess .crop-checkbox input:checked ~ .crop-label { background: rgba(16,185,129,0.15); border-color: var(--primary); color: var(--text-main); font-weight: 600; box-shadow: inset 0 0 10px var(--primary-glow); }
+#page-assess .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+#page-assess .option-card { position: relative; cursor: pointer; }
+#page-assess .option-card input[type="radio"] { position: absolute; opacity: 0; }
+#page-assess .option-content { background-color: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 20px; transition: all 0.3s ease; height: 100%; }
+#page-assess .option-content h3 { font-family: 'Outfit', sans-serif; font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main); }
+#page-assess .option-content p { font-size: 0.85rem; color: var(--text-muted); }
+#page-assess .option-card:hover .option-content { background-color: rgba(255,255,255,0.05); border-color: rgba(16,185,129,0.3); }
+#page-assess .option-card input:checked ~ .option-content { background-color: rgba(16,185,129,0.1); border-color: var(--primary); box-shadow: 0 0 20px rgba(16,185,129,0.15); }
+#page-assess .button-group { display: flex; justify-content: space-between; margin-top: 35px; padding-top: 25px; border-top: 1px solid var(--border-light); }
+#page-assess .btn { padding: 14px 28px; border-radius: var(--radius-sm); font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); display: flex; align-items: center; gap: 8px; }
+#page-assess .btn-prev { background-color: transparent; color: var(--text-muted); border: 1px solid var(--border-light); }
+#page-assess .btn-prev:hover { background-color: rgba(255,255,255,0.05); color: var(--text-main); border-color: var(--text-muted); }
+#page-assess .btn-next, #page-assess .btn-submit { background: linear-gradient(135deg, var(--primary), #059669); color: var(--bg-dark); margin-left: auto; box-shadow: 0 4px 15px var(--primary-glow); }
+#page-assess .btn-next:hover, #page-assess .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
+#page-assess .btn-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+#page-assess .result-section { display: none; animation: slideIn 0.6s ease forwards; }
+#page-assess .result-header { text-align: center; margin-bottom: 40px; }
+#page-assess .result-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; box-shadow: 0 10px 30px var(--primary-glow); }
+#page-assess .result-icon svg { width: 40px; height: 40px; fill: var(--bg-dark); }
+#page-assess .result-title { font-family: 'Outfit', sans-serif; font-size: 2.2rem; margin-bottom: 10px; }
+#page-assess .dashboard-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px; }
+#page-assess .dashboard-panel { background: rgba(0,0,0,0.3); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 25px; }
+#page-assess .panel-title { font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+#page-assess .profile-list { list-style: none; }
+#page-assess .profile-list li { display: flex; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+#page-assess .profile-list li:last-child { border-bottom: none; }
+#page-assess .profile-list li span:first-child { color: var(--text-muted); flex-shrink: 0; }
+#page-assess .profile-list li span:last-child { font-weight: 600; color: var(--text-main); text-align: right; }
+#page-assess .alert-box { padding: 15px; border-radius: var(--radius-sm); margin-bottom: 15px; display: flex; gap: 15px; align-items: flex-start; }
+#page-assess .alert-box svg { flex-shrink: 0; width: 24px; height: 24px; }
+#page-assess .alert-warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); }
+#page-assess .alert-warning svg { fill: var(--warning); }
+#page-assess .alert-warning h4 { color: var(--warning); margin-bottom: 5px; font-family: 'Outfit', sans-serif; }
+#page-assess .alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); }
+#page-assess .alert-success svg { fill: var(--primary); }
+#page-assess .alert-success h4 { color: var(--primary); margin-bottom: 5px; font-family: 'Outfit', sans-serif; }
+#page-assess .alert-info { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); }
+#page-assess .alert-info svg { fill: var(--info); }
+#page-assess .alert-info h4 { color: var(--info); margin-bottom: 5px; font-family: 'Outfit', sans-serif; }
+#page-assess .alert-box p { font-size: 0.9rem; line-height: 1.5; color: var(--text-main); }
+#page-assess .crop-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+#page-assess .crop-pill { background: rgba(255,255,255,0.05); border: 1px solid var(--border-light); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; color: var(--text-main); transition: all 0.3s; }
+#page-assess .crop-pill:hover { background: var(--primary); color: var(--bg-dark); border-color: var(--primary); }
+#page-assess .climate-panel { grid-column: 1 / -1; }
+#page-assess .climate-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+#page-assess .stat-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 14px 16px; }
+#page-assess .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+#page-assess .stat-value { font-family: 'Outfit', sans-serif; font-size: 1.55rem; font-weight: 700; color: var(--primary); line-height: 1.1; }
+#page-assess .stat-value.temp { color: #fb923c; }
+#page-assess .stat-value.rain { color: var(--info); }
+#page-assess .stat-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 5px; }
+#page-assess .rain-chart { display: flex; align-items: stretch; gap: 6px; height: 150px; margin-top: 8px; padding-top: 10px; }
+#page-assess .rain-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
+#page-assess .rain-track { flex: 1; width: 100%; display: flex; align-items: flex-end; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05)); border-radius: 4px; overflow: hidden; }
+#page-assess .rain-bar { width: 100%; background: linear-gradient(180deg, var(--primary-light), #0e7490); border-radius: 4px 4px 0 0; min-height: 2px; transition: height 0.8s cubic-bezier(0.16,1,0.3,1); }
+#page-assess .rain-month { font-size: 0.62rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+#page-assess .chart-caption { font-size: 0.72rem; color: var(--text-muted); margin-top: 12px; text-align: center; }
+#page-assess .data-source { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-light); font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#page-assess .data-source strong { color: var(--primary); font-weight: 600; }
+@media (max-width: 768px) {
+    #page-assess .dashboard-grid { grid-template-columns: 1fr; }
+    #page-assess .options-grid, #page-assess .dropdown-grid { grid-template-columns: 1fr; }
+    #page-assess .quiz-card { padding: 25px; }
+    #page-assess .step-title { font-size: 1.6rem; }
+    #page-assess .location-tabs { flex-direction: column; }
+    #page-assess .step-label { display: none; }
+    #page-assess .rain-chart { height: 120px; gap: 3px; }
+    #page-assess .rain-month { font-size: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     PAGE 1 : HOME
+     ========================================================= -->
+<div id="page-home" class="page active">
+    <section class="hero-section">
+        <nav class="navbar">
+            <a href="#home" class="logo">AGRICYCLE</a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li class="dropdown">
+                    <a href="#">Sources</a>
+                    <span class="dropdown-icon">
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <ul class="dropdown-content">
+                        <li><a href="#nasa-power">NASA POWER</a></li>
+                        <li><a href="#nasa-smap">NASA SMAP</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="#assess" class="nav-btn">
+                Continue
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </nav>
+        <div class="hero-content">
+            <div class="badge">Smart Farm</div>
+            <h1 class="hero-title">Grow Smarter<br>Harvest Better</h1>
+            <p class="hero-description">
+                Agri Cycle is a smart crop planner that provides a more efficient
+                and smarter approach to your cultivation. It plans your next
+                crop and gives a more efficient crop plan.
+            </p>
+            <div class="hero-buttons">
+                <a href="#assess" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M8 12H16M16 12L12 8M16 12L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Continue
+                </a>
+                <a href="#about" class="btn-secondary">Learn more</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- =========================================================
+     PAGE 2 : ABOUT
+     ========================================================= -->
+<div id="page-about" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRICYCLE</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li class="dropdown">
+                <a href="#">Sources</a>
+                <span class="dropdown-icon">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <ul class="dropdown-content">
+                    <li><a href="#nasa-power">NASA POWER</a></li>
+                    <li><a href="#nasa-smap">NASA SMAP</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Every field is different.</h1>
+            <p>
+                The soil, the weather, the water, and even the crops grown in previous seasons all play a part in what comes next. Yet choosing the right crop isn't always straightforward.
+            </p>
+            <p>
+                Farmers often have to make decisions based on experience, changing conditions, and information that isn't always easy to find.
+            </p>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1567086528609-12571e931c8e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+                 alt="Farm landscape">
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="section-container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1477511801984-4ad318ed9846?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+                         alt="Close up of soil and crops">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">That's where AgriCycle comes in.</h2>
+                    <p class="text-block">
+                        AgriCycle is a smart crop-planning platform designed to help farmers make more informed decisions about what to grow, when to grow it, and how to look after their land.
+                    </p>
+                    <p class="text-block">
+                        By bringing together information about soil conditions, local climate, previous crops, and environmental data, AgriCycle aims to turn scattered information into practical guidance that farmers can actually use.
+                    </p>
+                    <p class="highlight-text">
+                        We believe better farming doesn't necessarily mean doing more. Sometimes, it simply means making better decisions with what you already have.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: var(--white);">
+        <div class="section-container">
+            <h2 class="section-title">Our Purpose</h2>
+            <p class="text-block" style="font-size: 1.2rem; font-weight: 500; color: var(--primary-dark);">
+                To make agricultural information easier to understand and more useful in everyday farming.
+            </p>
+            <p class="text-block">
+                We want to help farmers look beyond a single growing season and think about the long-term health of their land. From choosing suitable crops to understanding crop rotation, our goal is to make planning more thoughtful and accessible.
+            </p>
+        </div>
+    </section>
+
+    <section style="background-color: var(--bg-light);">
+        <div class="section-container">
+            <h2 class="section-title">What We Focus On</h2>
+            <div class="focus-grid">
+                <div class="focus-card">
+                    <span class="focus-number">01</span>
+                    <h4>Understanding the Land</h4>
+                    <p>Every good farming decision starts with knowing the field. Soil type, fertility, moisture, and local conditions all matter.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">02</span>
+                    <h4>Choosing the Right Crop</h4>
+                    <p>Not every crop belongs in every field. We aim to help farmers identify crops that are better suited to their land and growing conditions.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">03</span>
+                    <h4>Planning Beyond One Season</h4>
+                    <p>What grows today can affect what grows tomorrow. Crop rotation helps farmers plan more balanced growing seasons and manage soil nutrients.</p>
+                </div>
+                <div class="focus-card">
+                    <span class="focus-number">04</span>
+                    <h4>Making Information Useful</h4>
+                    <p>Climate and environmental data can be difficult to interpret. AgriCycle brings relevant information together to make it easier to understand and apply.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vision-section">
+        <div class="section-container">
+            <h2 class="section-title">Our Vision</h2>
+            <p>
+                We imagine a future where farmers have access to the information they need to make confident decisions, where technology supports agricultural experience rather than replaces it, and where the health of the land remains just as important as the harvest.
+            </p>
+            <p class="closing-statement">
+                Because a successful harvest is important. But keeping the land ready for the next one matters just as much.
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 AgriCycle. All rights reserved.</p>
+    </footer>
+</div>
+
+<!-- =========================================================
+     PAGE 3 : SERVICES
+     ========================================================= -->
+<div id="page-services" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRI<span>CYCLE</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services" class="active">Services</a></li>
+            <li class="dropdown">
+                <a href="#">Sources</a>
+                <span class="dropdown-icon">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <ul class="dropdown-content">
+                    <li><a href="#nasa-power">NASA POWER</a></li>
+                    <li><a href="#nasa-smap">NASA SMAP</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-content">
+            <h1>Our Services</h1>
+            <p>Bringing together data, climate insights, and soil science to help you make better decisions for your land.</p>
+        </div>
+    </header>
+
+    <main class="services-container">
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-number">01</span>
+                <h2>Smart Crop Recommendations</h2>
+                <div class="service-tagline">Find crops that make sense for your land.</div>
+                <p>Choosing a crop shouldn't be a guessing game. AgriCycle uses information such as your location, soil characteristics, temperature, moisture and growing conditions to help identify crops that may be suitable for your field.</p>
+                <p>Our aim is simple: help you make a more informed choice before the growing season begins.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">02</span>
+                <h2>Crop Rotation Planning</h2>
+                <div class="service-tagline">Think about the next harvest, not just the current one.</div>
+                <p>The crop you grow today can influence the condition of your soil tomorrow. AgriCycle takes previous crop history into account to help farmers plan suitable crop sequences and make better use of their land over time.</p>
+                <p>Because good farming is about planning ahead.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">03</span>
+                <h2>Soil Condition Analysis</h2>
+                <div class="service-tagline">Understand what your soil can support.</div>
+                <p>Healthy crops begin with suitable soil conditions. Soil type, moisture and nutrient availability all influence how well a crop can grow.</p>
+                <p>AgriCycle brings available soil information together to help farmers understand their field's characteristics and consider crops that match those conditions.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">04</span>
+                <h2>Climate and Environmental Insights</h2>
+                <div class="service-tagline">Know the conditions surrounding your farm.</div>
+                <p>Weather and environmental conditions play a major role in agriculture. Through available environmental datasets, including NASA's Earth observation and meteorological resources, AgriCycle aims to provide useful information about temperature, rainfall, humidity and other relevant conditions.</p>
+                <p>This information helps put crop decisions into a wider environmental context.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">05</span>
+                <h2>Seasonal Crop Planning</h2>
+                <div class="service-tagline">Make your next growing season count.</div>
+                <p>Timing matters just as much as crop selection. AgriCycle helps farmers consider seasonal conditions and crop requirements when planning what to cultivate and when.</p>
+                <p>The goal is to make each growing season part of a more thoughtful, long-term plan.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">06</span>
+                <h2>Land and Location-Based Assessment</h2>
+                <div class="service-tagline">Because no two fields are exactly alike.</div>
+                <p>A recommendation that works in one district may not work in another. AgriCycle uses farm location and available regional agricultural information to make its assessments more relevant to the conditions of a particular area.</p>
+                <p>From the wider region down to the individual farm, location helps provide context for better decisions.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 AgriCycle. All rights reserved.</p>
+    </footer>
+</div>
+
+<!-- =========================================================
+     PAGE 4 : NASA POWER
+     ========================================================= -->
+<div id="page-nasa-power" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRI<span>CYCLE</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li class="dropdown">
+                <a href="#" class="active">Sources</a>
+                <span class="dropdown-icon">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <ul class="dropdown-content">
+                    <li><a href="#nasa-power" style="color: var(--agri-green);">NASA POWER</a></li>
+                    <li><a href="#nasa-smap">NASA SMAP</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+        <div class="content-section">
+            <div class="badge">Data Integration</div>
+            <h1>Powered by <span>NASA</span> Data</h1>
+            <div class="glass-card">
+                <p>
+                    <strong>AgriCycle uses NASA POWER</strong> to access reliable climate and environmental data, including temperature, rainfall, humidity and solar radiation.
+                </p>
+                <p>
+                    This information helps us understand local growing conditions and identify crops suited to a particular region.
+                </p>
+            </div>
+        </div>
+        <div class="image-section">
+            <img src="https://assets.science.nasa.gov/dynamicimage/assets/science/cds/general/images/2023/04/2/27946391011_d40ff10573_h.jpg?w=1024" alt="Satellite in orbit above Earth" class="satellite-image">
+        </div>
+    </main>
+</div>
+
+<!-- =========================================================
+     PAGE 5 : NASA SMAP
+     ========================================================= -->
+<div id="page-nasa-smap" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRI<span>CYCLE</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li class="dropdown">
+                <a href="#" class="active">Sources</a>
+                <span class="dropdown-icon">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <ul class="dropdown-content">
+                    <li><a href="#nasa-power">NASA POWER</a></li>
+                    <li><a href="#nasa-smap" style="color: var(--agri-green);">NASA SMAP</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+        <div class="content-section">
+            <div class="badge">Satellite Mission</div>
+            <h1>Soil Moisture from <span>Space</span></h1>
+            <div class="glass-card">
+                <p>
+                    NASA's <strong>Soil Moisture Active Passive (SMAP)</strong> mission provides soil-moisture data collected through satellite observations.
+                </p>
+                <p>
+                    AgriCycle uses this information to assess water availability in agricultural land and support more informed crop recommendations.
+                </p>
+            </div>
+        </div>
+        <div class="image-section">
+            <img src="https://www.nasa.gov/wp-content/uploads/2023/05/jpegpia17898.width-1600.jpg?w=1024" alt="Satellite view of Earth" class="satellite-image">
+        </div>
+    </main>
+</div>
+
+<!-- =========================================================
+     PAGE 6 : CONTACT
+     ========================================================= -->
+<div id="page-contact" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRI<span>CYCLE</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li class="dropdown">
+                <a href="#">Sources</a>
+                <span class="dropdown-icon">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <ul class="dropdown-content">
+                    <li><a href="#nasa-power">NASA POWER</a></li>
+                    <li><a href="#nasa-smap">NASA SMAP</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact" class="active">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+        <div class="contact-card">
+            <div class="badge">Get In Touch</div>
+            <h1>Contact me</h1>
+            <a href="mailto:2010saif2@gmail.com" class="email-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                2010saif2@gmail.com
+            </a>
+        </div>
+    </main>
+</div>
+
+<!-- =========================================================
+     PAGE 7 : ASSESS (UI.html)
+     ========================================================= -->
+<div id="page-assess" class="page">
+    <nav class="navbar">
+        <a href="#home" class="logo">AGRI<span>CYCLE</span></a>
+    </nav>
+
+    <main class="main-container">
+        <div class="quiz-card">
+            <div class="stepper" id="stepper">
+                <div class="step-indicator active" id="indicator-1"><div class="step-circle">1</div><div class="step-label">Location</div></div>
+                <div class="step-indicator" id="indicator-2"><div class="step-circle">2</div><div class="step-label">History</div></div>
+                <div class="step-indicator" id="indicator-3"><div class="step-circle">3</div><div class="step-label">Land Size</div></div>
+                <div class="step-indicator" id="indicator-4"><div class="step-circle">4</div><div class="step-label">Environment</div></div>
+            </div>
+
+            <form id="quizForm">
+                <div class="step active" id="step-1">
+                    <div class="step-header">
+                        <h2 class="step-title">Where is your farm?</h2>
+                        <p class="step-desc">Locate your farm using GPS or select manually.</p>
+                    </div>
+                    <div class="location-tabs">
+                        <button type="button" class="tab-btn active" onclick="switchLocationTab('gps')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Use GPS Location
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchLocationTab('manual')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            Select Manually
+                        </button>
+                    </div>
+
+                    <div class="location-content active" id="location-gps">
+                        <button type="button" class="gps-btn" onclick="getLocation()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg>
+                            Detect My Location
+                        </button>
+                        <div class="gps-result" id="gps-result">
+                            Location Detected: <span id="coords">0.000, 0.000</span>
+                        </div>
+                    </div>
+
+                    <div class="location-content" id="location-manual">
+                        <div class="dropdown-grid">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="country" onchange="updateProvince()">
+                                    <option value="">Select Country...</option>
+                                    <option value="Pakistan" selected>Pakistan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Province</label>
+                                <select id="province" onchange="updateDistrict()">
+                                    <option value="">Select Province...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>District</label>
+                                <select id="district" onchange="updateTehsil()">
+                                    <option value="">Select District...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tehsil</label>
+                                <select id="tehsil" onchange="onLocationChanged()">
+                                    <option value="">Select Tehsil...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 25px; max-width: 260px;">
+                        <label>Climate Reference Year (NASA POWER)</label>
+                        <select id="climateYear" onchange="onLocationChanged()"></select>
+                    </div>
+
+                    <div class="climate-status" id="climateStatus"></div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-next" onclick="nextStep(1)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step-2">
+                    <div class="step-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <h2 class="step-title">Your Crop History</h2>
+                            <p class="step-desc">Select at least 4 crops grown on this field recently.</p>
+                        </div>
+                        <div class="selection-counter" id="cropCounter">0 / 4 Selected</div>
+                    </div>
+                    <div class="crop-scroll-container" id="cropContainer"></div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-prev" onclick="prevStep(2)">&larr; Previous</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep(2)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step-3">
+                    <div class="step-header">
+                        <h2 class="step-title">What is the size of your land?</h2>
+                        <p class="step-desc">Enter the total cultivable area of the field.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Land Size</label>
+                        <div class="input-group">
+                            <input type="number" id="landSize" class="input-field" placeholder="e.g. 10.5" min="0.1" step="any">
+                            <select id="landUnit" class="input-field" style="max-width: 160px;">
+                                <option value="Acres">Acres</option>
+                                <option value="Hectares">Hectares</option>
+                                <option value="Kanal">Kanal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-prev" onclick="prevStep(3)">&larr; Previous</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep(3)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step-4">
+                    <div class="step-header">
+                        <h2 class="step-title">Farm Environment</h2>
+                        <p class="step-desc">Tell us about your water source and soil conditions.</p>
+                    </div>
+                    <h3 style="margin-bottom: 15px; color: var(--text-muted); font-size: 1.1rem; font-family: 'Outfit';">Primary Water Source</h3>
+                    <div class="options-grid" style="margin-bottom: 30px;">
+                        <label class="option-card">
+                            <input type="radio" name="water" value="Canal/River" required>
+                            <div class="option-content"><h3>Canal / River</h3><p>Reliable surface irrigation</p></div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="water" value="Tube-well">
+                            <div class="option-content"><h3>Tube-well</h3><p>Groundwater extraction</p></div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="water" value="Rainfed">
+                            <div class="option-content"><h3>Rainfed / Barani</h3><p>Dependent on rainfall</p></div>
+                        </label>
+                    </div>
+                    <h3 style="margin-bottom: 15px; color: var(--text-muted); font-size: 1.1rem; font-family: 'Outfit';">Dominant Soil Type</h3>
+                    <div class="options-grid">
+                        <label class="option-card">
+                            <input type="radio" name="soil" value="Sandy" required>
+                            <div class="option-content"><h3>Sandy / Light</h3><p>Fast draining</p></div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="soil" value="Loam">
+                            <div class="option-content"><h3>Loam / Silt</h3><p>Fertile, well-drained</p></div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="soil" value="Clay">
+                            <div class="option-content"><h3>Clay / Heavy</h3><p>High water holding</p></div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="soil" value="Saline">
+                            <div class="option-content"><h3>Saline / Alkaline</h3><p>High salt content</p></div>
+                        </label>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-prev" onclick="prevStep(4)">&larr; Previous</button>
+                        <button type="submit" class="btn btn-submit" id="submitBtn">Generate Assessment</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="result-section" id="result-section">
+                <div class="result-header">
+                    <div class="result-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <h2 class="result-title">Assessment Complete</h2>
+                    <p class="step-desc">Here is your tailored crop suitability and rotation analysis.</p>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-panel">
+                        <h3 class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Farm Profile
+                        </h3>
+                        <ul class="profile-list" id="profileList"></ul>
+                    </div>
+                    <div class="dashboard-panel">
+                        <h3 class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg>
+                            Analysis &amp; Recommendations
+                        </h3>
+                        <div id="adviceContainer"></div>
+                        <h4 style="margin-top: 25px; margin-bottom: 10px; font-family: 'Outfit', sans-serif; color: var(--text-main);">Suggested Next Crops</h4>
+                        <div class="crop-pills" id="recCrops"></div>
+                    </div>
+                    <div class="dashboard-panel climate-panel">
+                        <h3 class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            Climate Baseline <span id="climatePanelYear" style="color: var(--text-muted); font-weight: 400; font-size: 0.9rem;"></span>
+                        </h3>
+                        <div id="climatePanel"></div>
+                    </div>
+                </div>
+                <button class="btn btn-next" style="width: 100%; margin-top: 30px; justify-content: center;" onclick="location.reload()">Start New Assessment</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- =========================================================
+     ROUTER
+     ========================================================= -->
+<script>
+(function () {
+    var PAGES = ['home', 'about', 'services', 'nasa-power', 'nasa-smap', 'contact', 'assess'];
+    var TITLES = {
+        'home': 'AgriCycle - Smart Farm',
+        'about': 'AgriCycle - Smart Crop Planning',
+        'services': 'Our Services - AgriCycle',
+        'nasa-power': 'NASA POWER Data - AgriCycle',
+        'nasa-smap': 'NASA SMAP Data - AgriCycle',
+        'contact': 'Contact - AgriCycle',
+        'assess': 'Crop Suitability Assessment - AgriCycle'
+    };
+    function currentPage() {
+        var id = (location.hash || '#home').replace('#', '');
+        return PAGES.indexOf(id) !== -1 ? id : 'home';
+    }
+    function render() {
+        var id = currentPage();
+        document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('active'); });
+        var target = document.getElementById('page-' + id);
+        if (target) { target.classList.add('active'); }
+        document.title = TITLES[id] || 'AgriCycle';
+        document.querySelectorAll('.dropdown.open').forEach(function (d) { d.classList.remove('open'); });
+        window.scrollTo(0, 0);
+    }
+    window.addEventListener('hashchange', render);
+    document.addEventListener('click', function (e) {
+        var toggle = e.target.closest ? e.target.closest('.dropdown > a') : null;
+        document.querySelectorAll('.dropdown.open').forEach(function (d) {
+            if (!toggle || !d.contains(toggle)) { d.classList.remove('open'); }
+        });
+        if (toggle) { e.preventDefault(); toggle.parentElement.classList.toggle('open'); }
+    });
+    render();
+})();
+</script>
+
+<!-- =========================================================
+     ASSESSMENT LOGIC
+     ========================================================= -->
+<script>
+const locationData = {
+    "Pakistan": {
+        "Punjab": {
+            "Lahore": [
+                { name: "Model Town", lat: 31.48, lon: 74.32 },
+                { name: "Cantt", lat: 31.55, lon: 74.36 },
+                { name: "Gulberg", lat: 31.52, lon: 74.35 },
+                { name: "Raiwind", lat: 31.25, lon: 74.22 }
+            ],
+            "Multan": [
+                { name: "Multan City", lat: 30.20, lon: 71.47 },
+                { name: "Shujabad", lat: 29.88, lon: 71.28 },
+                { name: "Jalalpur Pirwala", lat: 29.50, lon: 71.22 }
+            ],
+            "Faisalabad": [
+                { name: "Faisalabad City", lat: 31.42, lon: 73.08 },
+                { name: "Jaranwala", lat: 31.33, lon: 73.42 },
+                { name: "Samundri", lat: 31.06, lon: 72.95 }
+            ],
+            "Rawalpindi": [
+                { name: "Rawalpindi City", lat: 33.60, lon: 73.04 },
+                { name: "Gujar Khan", lat: 33.25, lon: 73.30 },
+                { name: "Kahuta", lat: 33.59, lon: 73.38 }
+            ]
+        },
+        "Sindh": {
+            "Karachi": [
+                { name: "Karachi South", lat: 24.86, lon: 67.01 },
+                { name: "Karachi East", lat: 24.90, lon: 67.13 },
+                { name: "Korangi", lat: 24.83, lon: 67.13 },
+                { name: "Malir", lat: 24.89, lon: 67.20 }
+            ],
+            "Hyderabad": [
+                { name: "Hyderabad City", lat: 25.39, lon: 68.37 },
+                { name: "Latifabad", lat: 25.36, lon: 68.36 },
+                { name: "Qasimabad", lat: 25.40, lon: 68.34 }
+            ],
+            "Sukkur": [
+                { name: "Sukkur City", lat: 27.70, lon: 68.86 },
+                { name: "Rohri", lat: 27.68, lon: 68.90 },
+                { name: "Pano Aqil", lat: 27.85, lon: 69.11 }
+            ]
+        },
+        "Khyber Pakhtunkhwa": {
+            "Peshawar": [
+                { name: "Peshawar City", lat: 34.01, lon: 71.58 },
+                { name: "Hayatabad", lat: 33.99, lon: 71.44 },
+                { name: "Warsak", lat: 34.16, lon: 71.53 }
+            ],
+            "Mardan": [
+                { name: "Mardan City", lat: 34.20, lon: 72.04 },
+                { name: "Takht Bhai", lat: 34.29, lon: 71.94 },
+                { name: "Katlang", lat: 34.36, lon: 72.05 }
+            ],
+            "Swat": [
+                { name: "Mingora", lat: 34.78, lon: 72.36 },
+                { name: "Matta", lat: 34.93, lon: 72.31 },
+                { name: "Kabal", lat: 34.79, lon: 72.28 }
+            ]
+        },
+        "Balochistan": {
+            "Quetta": [
+                { name: "Quetta City", lat: 30.18, lon: 66.99 },
+                { name: "Chaman", lat: 30.92, lon: 66.45 },
+                { name: "Pishin", lat: 30.58, lon: 67.00 }
+            ],
+            "Gwadar": [
+                { name: "Gwadar City", lat: 25.13, lon: 62.32 },
+                { name: "Ormara", lat: 25.21, lon: 64.63 },
+                { name: "Pasni", lat: 25.26, lon: 63.47 }
+            ],
+            "Sibi": [
+                { name: "Sibi City", lat: 29.54, lon: 67.88 },
+                { name: "Dera Bugti", lat: 29.03, lon: 69.15 },
+                { name: "Kohlu", lat: 29.90, lon: 69.25 }
+            ]
+        }
+    }
+};
+
+const cropCategories = [
+    { name: "Cereals & Grains", crops: ["Wheat","Rice","Maize","Barley","Sorghum","Pearl Millet","Finger Millet","Foxtail Millet","Buckwheat","Quinoa"] },
+    { name: "Fiber & Cash Crops", crops: ["Cotton","Sugarcane","Tobacco","Jute","Sunn Hemp","Sugar Beet","Tea"] },
+    { name: "Pulses & Legumes", crops: ["Chickpea","Lentil","Mung Bean","Black Gram","Pigeon Pea","Field Pea","Cowpea","Grass Pea","Kidney Bean","Moth Bean"] },
+    { name: "Oilseeds", crops: ["Rapeseed","Mustard","Canola","Sunflower","Groundnut","Sesame","Cottonseed","Safflower","Linseed","Castor Bean","Soybean","Olive"] },
+    { name: "Vegetables", crops: ["Potato","Onion","Garlic","Ginger","Sweet Potato","Carrot","Radish","Turnip","Taro","Beetroot","Tomato","Brinjal","Okra","Capsicum","Bitter Gourd","Bottle Gourd","Ridge Gourd","Sponge Gourd","Pumpkin","Cucumber","Apple Gourd","Pointed Gourd","Ash Gourd","Snake Gourd","Cauliflower","Cabbage","Broccoli","Spinach","Fenugreek","Mustard Greens","Coriander","Mint","Lettuce","Purslane","Amaranth","Green Peas","Cluster Bean","French Beans"] },
+    { name: "Spices & Medicinal Crops", crops: ["Chili","Turmeric","Coriander Seed","Cumin","Fennel","Fenugreek Seed","Carom Seed","Nigella Seed","Saffron","Isabgol","Aloe Vera","Moringa"] },
+    { name: "Fruits", crops: ["Mango","Kinnow","Sweet Orange","Grapefruit","Lemon","Lime","Banana","Guava","Date Palm","Papaya","Chikoo","Loquat","Lychee","Jambolan","Falsa","Mulberry","Jujube","Custard Apple","Tamarind","Fig","Apple","Peach","Apricot","Plum","Pear","Pomegranate","Grapes","Persimmon","Cherry","Strawberry","Melon","Watermelon","Kiwi"] },
+    { name: "Tree Nuts", crops: ["Almond","Walnut","Pistachio","Pine Nut","Pecan"] },
+    { name: "Fodder & Forage", crops: ["Berseem","Lucerne","Shaftal","Oats","Ryegrass","Sorghum Fodder","Maize Fodder","Millet Fodder","Mott Grass","Rhodes Grass","Sadabahar","Guar"] }
+];
+
+const NASA_URL = "https://power.larc.nasa.gov/api/temporal/daily/point";
+const FILL_VALUE = -900;
+const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+let gpsCoords = null, climateData = null, climateKey = null, climatePromise = null, climateError = null;
+
+async function fetchNasaPower(lat, lon, year, month) {
+    const params = new URLSearchParams({
+        latitude: lat, longitude: lon,
+        start: `${year}0101`, end: `${year}1231`,
+        parameters: "T2M,PRECTOTCORR", community: "AG", format: "JSON"
+    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 45000);
+    try {
+        const res = await fetch(`${NASA_URL}?${params.toString()}`, { signal: controller.signal });
+        if (!res.ok) throw new Error(`NASA POWER responded with HTTP ${res.status}`);
+        const data = await res.json();
+        return computeClimateStats(data, year, month);
+    } finally { clearTimeout(timer); }
+}
+
+function computeClimateStats(data, year, month) {
+    const parameter = (data && data.properties && data.properties.parameter) || {};
+    const t2m = parameter.T2M || {};
+    const prec = parameter.PRECTOTCORR || {};
+    if (!Object.keys(t2m).length || !Object.keys(prec).length) throw new Error("NASA POWER returned no usable data for this point/year.");
+    const monthStr = String(month).padStart(2, "0");
+    const monthTemps = [], precValues = [];
+    const monthlyTotal = new Array(12).fill(0);
+    const monthlyRainDays = new Array(12).fill(0);
+    Object.entries(t2m).forEach(([d, v]) => {
+        if (v === null || v === undefined || v <= FILL_VALUE) return;
+        if (d.startsWith(`${year}${monthStr}`)) monthTemps.push(v);
+    });
+    Object.entries(prec).forEach(([d, v]) => {
+        if (v === null || v === undefined || v <= FILL_VALUE) return;
+        const m = parseInt(d.slice(4, 6), 10) - 1;
+        if (m < 0 || m > 11) return;
+        precValues.push(v); monthlyTotal[m] += v;
+        if (v >= 1) monthlyRainDays[m] += 1;
+    });
+    if (!precValues.length) throw new Error("No valid precipitation values returned for this year.");
+    const avgTemp = monthTemps.length ? monthTemps.reduce((a,b)=>a+b,0)/monthTemps.length : null;
+    const annualTotal = precValues.reduce((a,b)=>a+b,0);
+    const minPrec = Math.min(...precValues), maxPrec = Math.max(...precValues);
+    const rainyDays = precValues.filter(v => v >= 1).length;
+    let aridity = "Arid";
+    if (annualTotal >= 800) aridity = "Humid";
+    else if (annualTotal >= 500) aridity = "Sub-humid";
+    else if (annualTotal >= 250) aridity = "Semi-arid";
+    return { year, month, monthName: MONTH_ABBR[month-1], avgTemp, monthDays: monthTemps.length, annualTotal, minPrec, maxPrec, rainyDays, monthlyTotal, monthlyRainDays, aridity };
+}
+
+function getSelectedCoords() {
+    const gpsActive = document.getElementById("location-gps").classList.contains("active");
+    if (gpsActive) {
+        if (!gpsCoords) return null;
+        return { lat: gpsCoords.lat, lon: gpsCoords.lon, label: "GPS Location" };
+    }
+    const province = document.getElementById("province").value;
+    const district = document.getElementById("district").value;
+    const tehsilName = document.getElementById("tehsil").value;
+    if (!province || !district || !tehsilName) return null;
+    const tehsils = locationData["Pakistan"][province][district] || [];
+    const found = tehsils.find(t => t.name === tehsilName);
+    if (!found) return null;
+    return { lat: found.lat, lon: found.lon, label: `${tehsilName}, ${district}` };
+}
+
+async function ensureClimate() {
+    const coords = getSelectedCoords();
+    if (!coords) { climateError = "No coordinates available for the selected location."; return null; }
+    const year = parseInt(document.getElementById("climateYear").value, 10);
+    const month = new Date().getMonth() + 1;
+    const key = `${coords.lat.toFixed(3)},${coords.lon.toFixed(3)},${year}`;
+    if (climateData && climateKey === key) return climateData;
+    if (climatePromise && climateKey === key) return climatePromise;
+    climateKey = key; climateError = null;
+    climatePromise = fetchNasaPower(coords.lat, coords.lon, year, month)
+        .then(stats => { stats.lat = coords.lat; stats.lon = coords.lon; stats.label = coords.label; climateData = stats; return stats; })
+        .catch(err => {
+            climateError = err.name === "AbortError" ? "NASA POWER request timed out." : (err.message || "Unknown error contacting NASA POWER.");
+            climateData = null; return null;
+        })
+        .finally(() => { climatePromise = null; });
+    return climatePromise;
+}
+
+function setClimateStatus(state, message) {
+    const el = document.getElementById("climateStatus");
+    el.className = "climate-status show " + state;
+    el.innerHTML = state === "loading"
+        ? `<span class="spinner"></span><span>${message}</span>`
+        : `<span>${message}</span>`;
+}
+
+async function loadClimatePreview() {
+    if (!getSelectedCoords()) { document.getElementById("climateStatus").className = "climate-status"; return; }
+    setClimateStatus("loading", "Contacting NASA POWER for daily climate data…");
+    const stats = await ensureClimate();
+    if (stats) {
+        setClimateStatus("ok", `✅ Climate baseline loaded — ${stats.year}: ${stats.annualTotal.toFixed(0)} mm annual rainfall, ${stats.avgTemp !== null ? stats.avgTemp.toFixed(1) : "n/a"} °C avg in ${stats.monthName}.`);
+    } else {
+        setClimateStatus("err", `⚠️ Could not load NASA POWER data — ${climateError || "unknown error"}. Assessment will continue without climate baseline.`);
+    }
+}
+
+function onLocationChanged() {
+    climateData = null; climateKey = null; climateError = null;
+    const status = document.getElementById("climateStatus");
+    status.className = "climate-status"; status.innerHTML = "";
+}
+
+document.addEventListener("DOMContentLoaded", () => { buildYearSelect(); updateProvince(); renderCrops(); });
+
+function buildYearSelect() {
+    const select = document.getElementById("climateYear");
+    const thisYear = new Date().getFullYear();
+    select.innerHTML = "";
+    for (let y = thisYear - 1; y >= thisYear - 7; y--) {
+        const opt = document.createElement("option"); opt.value = y; opt.textContent = y; select.appendChild(opt);
+    }
+}
+
+function switchLocationTab(tab) {
+    document.querySelectorAll('#page-assess .tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('#page-assess .location-content').forEach(c => c.classList.remove('active'));
+    if (tab === 'gps') {
+        document.querySelectorAll('#page-assess .tab-btn')[0].classList.add('active');
+        document.getElementById('location-gps').classList.add('active');
+    } else {
+        document.querySelectorAll('#page-assess .tab-btn')[1].classList.add('active');
+        document.getElementById('location-manual').classList.add('active');
+    }
+    onLocationChanged();
+}
+
+function getLocation() {
+    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(showPosition, showError);
+    else alert("Geolocation is not supported by this browser.");
+}
+function showPosition(position) {
+    const lat = position.coords.latitude.toFixed(4);
+    const lon = position.coords.longitude.toFixed(4);
+    gpsCoords = { lat: parseFloat(lat), lon: parseFloat(lon) };
+    document.getElementById('coords').innerText = `${lat}, ${lon}`;
+    document.getElementById('gps-result').style.display = 'block';
+    onLocationChanged();
+}
+function showError() { alert("Unable to retrieve your location. Please select manually."); }
+
+function updateProvince() {
+    const country = document.getElementById("country").value;
+    const p = document.getElementById("province");
+    p.innerHTML = '<option value="">Select Province...</option>';
+    if (country && locationData[country]) Object.keys(locationData[country]).forEach(x => p.innerHTML += `<option value="${x}">${x}</option>`);
+    updateDistrict(); onLocationChanged();
+}
+function updateDistrict() {
+    const country = document.getElementById("country").value;
+    const province = document.getElementById("province").value;
+    const d = document.getElementById("district");
+    d.innerHTML = '<option value="">Select District...</option>';
+    if (province && locationData[country] && locationData[country][province]) Object.keys(locationData[country][province]).forEach(x => d.innerHTML += `<option value="${x}">${x}</option>`);
+    updateTehsil(); onLocationChanged();
+}
+function updateTehsil() {
+    const country = document.getElementById("country").value;
+    const province = document.getElementById("province").value;
+    const district = document.getElementById("district").value;
+    const t = document.getElementById("tehsil");
+    t.innerHTML = '<option value="">Select Tehsil...</option>';
+    if (district && locationData[country] && locationData[country][province] && locationData[country][province][district]) {
+        locationData[country][province][district].forEach(x => t.innerHTML += `<option value="${x.name}">${x.name}</option>`);
+    }
+    onLocationChanged();
+}
+
+function renderCrops() {
+    const container = document.getElementById("cropContainer");
+    let html = "";
+    cropCategories.forEach((cat, i) => {
+        html += `<div class="crop-category"><h3>${cat.name}</h3><div class="crop-grid">`;
+        cat.crops.forEach((crop, j) => {
+            const id = `crop-${i}-${j}`;
+            html += `<label class="crop-checkbox" for="${id}"><input type="checkbox" id="${id}" name="crops" value="${crop}" onchange="updateCropCounter()"><span class="crop-label">${crop}</span></label>`;
+        });
+        html += `</div></div>`;
+    });
+    container.innerHTML = html;
+}
+function updateCropCounter() {
+    const count = document.querySelectorAll('input[name="crops"]:checked').length;
+    const c = document.getElementById('cropCounter');
+    c.innerText = `${count} / 4 Selected`;
+    c.classList.toggle('success', count >= 4);
+}
+
+let currentStep = 1;
+const totalSteps = 4;
+updateStepper();
+
+function nextStep(step) {
+    if (step === 1) {
+        const gpsActive = document.getElementById('location-gps').classList.contains('active');
+        if (gpsActive) {
+            if (document.getElementById('gps-result').style.display !== 'block') { alert("Please detect your GPS location or switch to manual selection."); return; }
+        } else {
+            if (!document.getElementById('tehsil').value) { alert("Please select your location down to the Tehsil level."); return; }
+        }
+    }
+    if (step === 2) {
+        if (document.querySelectorAll('input[name="crops"]:checked').length < 4) { alert("Please select at least 4 crops from your history to proceed."); return; }
+    }
+    if (step === 3) {
+        const ls = document.getElementById('landSize').value;
+        if (!ls || ls <= 0) { alert("Please enter a valid land size."); return; }
+    }
+    document.getElementById(`step-${step}`).classList.remove('active');
+    currentStep = step + 1;
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    updateStepper();
+    if (step === 1) loadClimatePreview();
+}
+function prevStep(step) {
+    document.getElementById(`step-${step}`).classList.remove('active');
+    currentStep = step - 1;
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    updateStepper();
+}
+function updateStepper() {
+    for (let i = 1; i <= totalSteps; i++) {
+        const ind = document.getElementById(`indicator-${i}`);
+        ind.classList.remove('active', 'completed');
+        if (i < currentStep) ind.classList.add('completed');
+        else if (i === currentStep) ind.classList.add('active');
+    }
+}
+
+document.getElementById('quizForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true; submitBtn.textContent = "Analyzing…";
+    const formData = new FormData(this);
+    const water = formData.get('water'), soil = formData.get('soil');
+    const landSize = document.getElementById('landSize').value;
+    const landUnit = document.getElementById('landUnit').value;
+    const cropHistory = Array.from(document.querySelectorAll('input[name="crops"]:checked')).map(cb => cb.value);
+    let locationText = "";
+    if (document.getElementById('location-gps').classList.contains('active')) {
+        locationText = `GPS: ${document.getElementById('coords').innerText}`;
+    } else {
+        locationText = `${document.getElementById('tehsil').value}, ${document.getElementById('district').value}, ${document.getElementById('province').value}`;
+    }
+    this.style.display = 'none';
+    document.getElementById('stepper').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+    document.getElementById('climatePanelYear').textContent = '';
+    document.getElementById('climatePanel').innerHTML = `
+        <div class="alert-box alert-info" style="margin-bottom:0;">
+            <span class="spinner" style="border-color: rgba(56,189,248,.25); border-top-color: var(--info); margin-top:2px;"></span>
+            <div><h4>Fetching NASA POWER Climate Data…</h4>
+            <p>Retrieving daily temperature and precipitation records for <strong>${locationText}</strong>. This may take a few seconds.</p></div>
+        </div>`;
+    const climate = await ensureClimate();
+    renderProfile(locationText, landSize, landUnit, water, soil, cropHistory, climate);
+    renderAdvice(cropHistory, landSize, landUnit, water, soil, climate);
+    renderClimatePanel(climate);
+    submitBtn.disabled = false; submitBtn.textContent = "Generate Assessment";
+});
+
+function renderProfile(location, landSize, landUnit, water, soil, history, climate) {
+    const list = document.getElementById('profileList');
+    const coordText = climate ? `${climate.lat.toFixed(3)}°, ${climate.lon.toFixed(3)}°` : "—";
+    list.innerHTML = `
+        <li><span>Location</span><span>${location}</span></li>
+        <li><span>Coordinates</span><span>${coordText}</span></li>
+        <li><span>Land Size</span><span>${landSize} ${landUnit}</span></li>
+        <li><span>Water Source</span><span>${water}</span></li>
+        <li><span>Soil Type</span><span>${soil}</span></li>
+        <li><span>Climate Zone</span><span>${climate ? climate.aridity : "Not available"}</span></li>
+        <li><span>Crops Grown</span><span>${history.length} selected</span></li>`;
+}
+
+function renderAdvice(history, landSize, landUnit, water, soil, climate) {
+    const adviceContainer = document.getElementById('adviceContainer');
+    const recCropsContainer = document.getElementById('recCrops');
+    let adviceHTML = "";
+    let recommendedNext = [];
+    const hasCereal = history.some(c => ["Wheat","Rice","Maize","Barley"].includes(c));
+    const hasSolanaceous = history.some(c => ["Potato","Tomato","Chili","Brinjal"].includes(c));
+    const hasPulse = history.some(c => ["Chickpea","Lentil","Mung Bean","Field Pea","Guar"].includes(c));
+    const hasHeavyWater = history.some(c => ["Rice","Sugarcane","Cotton"].includes(c));
+
+    if (hasCereal && !hasPulse) {
+        adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Nutrient Depletion Risk</h4><p>Your history is cereal-heavy. Introduce a pulse (legume) crop like Chickpea, Lentil, or Mung Bean in the next cycle to restore nitrogen naturally.</p></div></div>`;
+        recommendedNext.push("Chickpea","Lentil","Mung Bean");
+    }
+    if (hasSolanaceous) {
+        adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Disease Risk</h4><p>You have grown Solanaceous crops recently. Avoid planting Tomato, Potato, or Chili back-to-back to prevent soil-borne diseases.</p></div></div>`;
+        recommendedNext.push("Wheat","Maize","Fodder Crops");
+    }
+    if (hasHeavyWater && water === 'Rainfed') {
+        adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Water Mismatch</h4><p>You previously grew water-intensive crops, but your current source is Rainfed. Switch to drought-tolerant crops immediately to avoid failure.</p></div></div>`;
+        recommendedNext.push("Pearl Millet (Bajra)","Sorghum","Barley");
+    }
+
+    const numericSize = parseFloat(landSize);
+    let isSmall = false, isLarge = false;
+    if (landUnit === "Acres" || landUnit === "Kanal") {
+        const acres = landUnit === "Kanal" ? numericSize / 8 : numericSize;
+        if (acres < 5) isSmall = true; else if (acres > 25) isLarge = true;
+    } else { if (numericSize < 2) isSmall = true; else if (numericSize > 10) isLarge = true; }
+
+    if (isSmall) {
+        adviceHTML += `<div class="alert-box alert-success"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div><h4>High-Value Strategy</h4><p>With a smaller holding, focus on high-value, labor-intensive crops like vegetables (tomatoes, chilies), spices, or tunnel farming to maximize profit per square foot.</p></div></div>`;
+        recommendedNext.push("Vegetables","Spices","Tunnel Farming");
+    } else if (isLarge) {
+        adviceHTML += `<div class="alert-box alert-success"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div><h4>Mechanization Strategy</h4><p>With a large holding, mechanization is key. Focus on major cereals, oilseeds, or orchards for long-term ROI.</p></div></div>`;
+        recommendedNext.push("Wheat","Rice","Orchards");
+    }
+
+    if (soil === 'Saline') recommendedNext.push("Barley","Sugar Beet","Date Palm");
+    else if (soil === 'Sandy') recommendedNext.push("Groundnut","Watermelon","Millet");
+    else recommendedNext.push("Wheat","Maize");
+
+    if (climate) {
+        const rain = climate.annualTotal;
+        const avgT = climate.avgTemp;
+        if (water === 'Rainfed') {
+            if (rain < 250) {
+                adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Critical: Arid Rainfed Zone (${rain.toFixed(0)} mm/yr)</h4><p>NASA POWER records only <strong>${rain.toFixed(0)} mm</strong> of rainfall for ${climate.year} at this location — well below the 250 mm threshold for viable rainfed cropping. Supplemental irrigation, water harvesting, or a switch to drought-hardy crops is essential.</p></div></div>`;
+                recommendedNext.push("Pearl Millet","Moth Bean","Guar","Sorghum");
+            } else if (rain < 500) {
+                adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Semi-Arid Rainfed Risk (${rain.toFixed(0)} mm/yr)</h4><p>Annual rainfall of <strong>${rain.toFixed(0)} mm</strong> is marginal for rainfed cereal production. Plan a drought-tolerant rotation and keep a fallow buffer season.</p></div></div>`;
+                recommendedNext.push("Chickpea","Barley","Sorghum");
+            } else {
+                adviceHTML += `<div class="alert-box alert-success"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div><h4>Favourable Rainfed Conditions (${rain.toFixed(0)} mm/yr)</h4><p>With <strong>${rain.toFixed(0)} mm</strong> of annual rainfall and <strong>${climate.rainyDays}</strong> rainy days, rainfed cropping is viable. Prioritise moisture-conserving tillage and early-maturing varieties.</p></div></div>`;
+                recommendedNext.push("Wheat","Maize","Lentil");
+            }
+        }
+        if (rain > 800) {
+            adviceHTML += `<div class="alert-box alert-info"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>High Rainfall — Fungal &amp; Drainage Watch</h4><p>Annual rainfall of <strong>${rain.toFixed(0)} mm</strong> raises the risk of fungal disease and waterlogging. Ensure field drainage and choose disease-resistant varieties; consider raised-bed planting.</p></div></div>`;
+            recommendedNext.push("Rice","Sugarcane","Berseem");
+        }
+        if (avgT !== null && avgT >= 35) {
+            adviceHTML += `<div class="alert-box alert-warning"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Heat Stress (${avgT.toFixed(1)} °C in ${climate.monthName})</h4><p>NASA POWER records an average of <strong>${avgT.toFixed(1)} °C</strong> for ${climate.monthName} ${climate.year}. Avoid sowing sensitive crops now; use shade nets, mulching, and heat-tolerant varieties.</p></div></div>`;
+            recommendedNext.push("Okra","Sorghum","Pearl Millet");
+        } else if (avgT !== null && avgT <= 8) {
+            adviceHTML += `<div class="alert-box alert-info"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Frost Risk (${avgT.toFixed(1)} °C in ${climate.monthName})</h4><p>Average temperatures of <strong>${avgT.toFixed(1)} °C</strong> in ${climate.monthName} indicate frost exposure. Protect sensitive crops and favour cool-season cereals such as Wheat and Barley.</p></div></div>`;
+            recommendedNext.push("Wheat","Barley","Berseem");
+        }
+    }
+    if (adviceHTML === "") {
+        adviceHTML = `<div class="alert-box alert-success"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div><h4>Balanced Rotation</h4><p>Your crop rotation looks balanced. Maintain current practices and monitor soil health annually.</p></div></div>`;
+    }
+    adviceContainer.innerHTML = adviceHTML;
+    recommendedNext = [...new Set(recommendedNext)].slice(0, 8);
+    recCropsContainer.innerHTML = recommendedNext.map(c => `<span class="crop-pill">${c}</span>`).join('');
+}
+
+function renderClimatePanel(climate) {
+    const panel = document.getElementById('climatePanel');
+    const yearLabel = document.getElementById('climatePanelYear');
+    if (!climate) {
+        yearLabel.textContent = '';
+        panel.innerHTML = `<div class="alert-box alert-warning" style="margin-bottom:0;"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><div><h4>Climate Data Unavailable</h4><p>${climateError || "NASA POWER data could not be retrieved for this location."} Your assessment was generated using agronomic rules only.</p></div></div>`;
+        return;
+    }
+    yearLabel.textContent = `— ${climate.year} · ${climate.lat.toFixed(3)}°, ${climate.lon.toFixed(3)}°`;
+    const maxMonthly = Math.max(...climate.monthlyTotal, 1);
+    const bars = climate.monthlyTotal.map((total, i) => {
+        const pct = Math.max(2, (total / maxMonthly) * 100);
+        const tip = `${MONTH_ABBR[i]}: ${total.toFixed(1)} mm — ${climate.monthlyRainDays[i]} rainy days`;
+        return `<div class="rain-col" title="${tip}"><div class="rain-track"><div class="rain-bar" style="height: ${pct}%"></div></div><span class="rain-month">${MONTH_ABBR[i]}</span></div>`;
+    }).join('');
+    const tempText = climate.avgTemp !== null ? climate.avgTemp.toFixed(1) : "—";
+    panel.innerHTML = `
+        <div class="climate-stats">
+            <div class="stat-card"><div class="stat-label">Avg Temp · ${climate.monthName}</div><div class="stat-value temp">${tempText}<span style="font-size:0.9rem;"> °C</span></div><div class="stat-sub">${climate.monthDays} daily records</div></div>
+            <div class="stat-card"><div class="stat-label">Annual Rainfall</div><div class="stat-value rain">${climate.annualTotal.toFixed(0)}<span style="font-size:0.9rem;"> mm</span></div><div class="stat-sub">${climate.aridity} zone</div></div>
+            <div class="stat-card"><div class="stat-label">Rainy Days</div><div class="stat-value">${climate.rainyDays}</div><div class="stat-sub">days with ≥ 1 mm</div></div>
+            <div class="stat-card"><div class="stat-label">Max Daily Rain</div><div class="stat-value rain">${climate.maxPrec.toFixed(1)}<span style="font-size:0.9rem;"> mm</span></div><div class="stat-sub">min daily ${climate.minPrec.toFixed(2)} mm</div></div>
+        </div>
+        <div class="rain-chart">${bars}</div>
+        <div class="chart-caption">Monthly rainfall distribution for ${climate.year} (mm)</div>
+        <div class="data-source"><span>🛰️ Source:</span><strong>NASA POWER</strong><span>(MERRA-2 · community AG) — parameters T2M &amp; PRECTOTCORR, daily values for ${climate.year}.</span></div>`;
+}
+</script>
+
+</body>
+</html>
